@@ -10,10 +10,16 @@ import EssentialLink, {
 
 const essentialLinks: EssentialLinkProps[] = [
   {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev',
+    title: 'Home',
+    caption: '',
+    icon: 'mdi-home',
+    route: 'me',
+  },
+  {
+    title: 'Category',
+    caption: '',
+    icon: 'mdi-shape',
+    route: 'category',
   },
 ];
 
@@ -54,7 +60,7 @@ function toggleLeftDrawer() {
           @click="toggleLeftDrawer"
         />
 
-        <q-toolbar-title> Quasar App </q-toolbar-title>
+        <q-toolbar-title> Estoque </q-toolbar-title>
 
         <q-btn-dropdown color="white" icon="person" flat>
           <q-list>
@@ -70,7 +76,7 @@ function toggleLeftDrawer() {
 
     <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
       <q-list>
-        <q-item-label header> Essential Links </q-item-label>
+        <q-item-label header> Menu </q-item-label>
 
         <EssentialLink
           v-for="link in essentialLinks"

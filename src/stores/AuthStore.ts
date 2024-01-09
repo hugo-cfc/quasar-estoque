@@ -12,6 +12,7 @@ interface RegisterData extends LoginProps {
 }
 
 interface User {
+  id: string;
   email: string;
   user_metadata: RegisterData;
 }
