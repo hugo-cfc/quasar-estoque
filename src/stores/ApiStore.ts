@@ -6,7 +6,7 @@ import { useAuthStore } from './AuthStore';
 const { supabase } = useSupabase();
 const { user } = useAuthStore();
 
-export const useCategoryStore = defineStore('category', {
+export const useApiStore = defineStore('api', {
   state: () => ({
     user: {} as any,
   }),
@@ -50,7 +50,7 @@ export const useCategoryStore = defineStore('category', {
 
       return data;
     },
-    delete: async (table: string, id: string) => {
+    remove: async (table: string, id: string) => {
       const { data, error } = await supabase.from(table).delete().match({ id });
 
       if (error) throw error;

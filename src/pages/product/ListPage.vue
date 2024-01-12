@@ -1,27 +1,27 @@
 <script setup lang="ts">
-import { useCategoryStore } from 'src/stores/CategoryStore';
+import { useApiStore } from 'src/stores/ApiStore';
 import { onMounted, ref } from 'vue';
 import useNotify from 'src/composables/UseNotify';
-import Category from 'src/types/Category';
+import Product from 'src/types/Product';
 import { useRouter } from 'vue-router';
 import { useQuasar } from 'quasar';
 import { columns } from './table';
 
-const { list, remove } = useCategoryStore();
+const { list, remove } = useApiStore();
 const { notifyError, notifySuccess } = useNotify();
 const $q = useQuasar();
 const router = useRouter();
-const table = 'category';
+const table = 'product';
 const isLoading = ref(true);
-const categories = ref<Category[]>([]);
+const products = ref<Product[]>([]);
 
-async function handleListCategories() {
+async function handleListProducts() {
   try {
     isLoading.value = true;
 
-    const data: Category[] = await list('category');
+    const data: Product[] = await list('product');
 
-    categories.value = data;
+    products.value = data;
 
     isLoading.value = false;
   } catch (error) {
@@ -31,23 +31,23 @@ async function handleListCategories() {
   }
 }
 
-function handleEdit(category: Category) {
-  router.push({ name: 'form-category', params: { id: category.id } });
+function handleEdit(product: Product) {
+  router.push({ name: 'form-product', params: { id: product.id } });
 }
 
-async function handleRemoveCategory(category: Category) {
+async function handleRemoveProduct(product: Product) {
   try {
     $q.dialog({
       title: 'Confirm',
-      message: `Do you really delete ${category.name}?`,
+      message: `Do you really delete ${product.name}?`,
       cancel: true,
       persistent: true,
     }).onOk(async () => {
-      await remove(table, category.id);
+      await remove(table, product.id);
 
       notifySuccess('Successfully deleted');
 
-      await handleListCategories();
+      await handleListProducts();
     });
   } catch (error) {
     if (error instanceof Error) {
@@ -57,7 +57,7 @@ async function handleRemoveCategory(category: Category) {
 }
 
 onMounted(() => {
-  handleListCategories();
+  handleListProducts();
 });
 </script>
 
@@ -65,15 +65,15 @@ onMounted(() => {
   <q-page padding>
     <div class="row">
       <q-table
-        title="Category"
-        :rows="categories"
+        title="Product"
+        :rows="products"
         :columns="columns"
         row-key="id"
         class="col-12"
         :loading="isLoading"
       >
         <template v-slot:top>
-          <span class="text-h6">Category</span>
+          <span class="text-h6">Product</span>
 
           <q-space />
           <q-btn
@@ -82,7 +82,7 @@ onMounted(() => {
             color="primary"
             icon="mdi-plus"
             dense
-            :to="{ name: 'form-category' }"
+            :to="{ name: 'form-product' }"
           />
         </template>
 
@@ -103,7 +103,7 @@ onMounted(() => {
               color="negative"
               dense
               size="sm"
-              @click="handleRemoveCategory(props.row)"
+              @click="handleRemoveProduct(props.row)"
             >
               <q-tooltip> Remove </q-tooltip>
             </q-btn>
@@ -115,7 +115,7 @@ onMounted(() => {
     <q-page-sticky position="bottom-right" :offset="[18, 18]">
       <q-btn
         v-if="$q.platform.is.mobile"
-        :to="{ name: 'form-category' }"
+        :to="{ name: 'form-product' }"
         fab
         icon="mdi-plus"
         color="primary"
