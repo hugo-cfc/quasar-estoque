@@ -21,6 +21,12 @@ const essentialLinks: EssentialLinkProps[] = [
     icon: 'mdi-shape',
     route: 'category',
   },
+  {
+    title: 'Product',
+    caption: '',
+    icon: 'mdi-archive',
+    route: 'product',
+  },
 ];
 
 const $q = useQuasar();

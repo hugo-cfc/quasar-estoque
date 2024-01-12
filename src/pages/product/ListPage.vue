@@ -86,6 +86,14 @@ onMounted(() => {
           />
         </template>
 
+        <template v-slot:body-cell-img_url="props">
+          <q-td :props="props">
+            <q-avatar>
+              <img :src="props.row.img_url" />
+            </q-avatar>
+          </q-td>
+        </template>
+
         <template v-slot:body-cell-actions="props">
           <q-td class="q-gutter-x-sm" :props="props">
             <q-btn

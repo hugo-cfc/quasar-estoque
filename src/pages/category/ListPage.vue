@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useCategoryStore } from 'src/stores/CategoryStore';
+import { useApiStore } from 'src/stores/ApiStore';
 import { onMounted, ref } from 'vue';
 import useNotify from 'src/composables/UseNotify';
 import Category from 'src/types/Category';
@@ -7,7 +7,7 @@ import { useRouter } from 'vue-router';
 import { useQuasar } from 'quasar';
 import { columns } from './table';
 
-const { list, remove } = useCategoryStore();
+const { list, remove } = useApiStore();
 const { notifyError, notifySuccess } = useNotify();
 const $q = useQuasar();
 const router = useRouter();
